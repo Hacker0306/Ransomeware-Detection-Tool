@@ -6,7 +6,7 @@ import numpy as np
 import os
 import pickle
 
-model = joblib.load(r"C:\Users\sid\Desktop\major project rathi project\models\model1.pkl")
+model = joblib.load("models/model1.pkl")
 feature_list = joblib.load("models/features.pkl")
 
 
