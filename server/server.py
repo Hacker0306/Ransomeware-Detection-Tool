@@ -6,9 +6,9 @@ import numpy as np
 import os
 import pickle
 
-model = joblib.load("models/model1.pkl")
-feature_list = joblib.load("models/features.pkl")
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model = joblib.load(os.path.join(BASE_DIR, "models", "model1.pkl"))
+feature_list = joblib.load(os.path.join(BASE_DIR, "models", "features.pkl"))
 
 app = Flask(__name__)
 app.secret_key = 'asd84a5d6d6sd5a6dq4asc4d6wed4s65c5d4ed6as5sad46d56as5d56d56qd6eedwe4e8d'
@@ -17,12 +17,7 @@ app.secret_key = 'asd84a5d6d6sd5a6dq4asc4d6wed4s65c5d4ed6as5sad46d56as5d56d56qd6
 def Home():
     if "login" not in session:
         return redirect("/login")
-    
-    # Read CSV and get columns (features)
-    df = pd.read_csv(r'C:\Users\sid\Desktop\major project rathi project\data_file\data_file.csv')
-    features = df.columns
-
-    data = {"features": list(features)}
+    data = {"features": list(feature_list)}
     if "output" in session:
         data["output"] = session["output"]
         session.pop("output")
@@ -139,4 +134,5 @@ def Dashboard():
         return redirect("/login")
     return render_template("dashboard.html")
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=False)
